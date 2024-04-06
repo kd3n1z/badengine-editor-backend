@@ -1,0 +1,16 @@
+name: Dispatch editor bump
+
+on:
+    push:
+        branches:
+            - main
+jobs:
+    dispatch:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Dispatch bump to kd3n1z/badengine-editor
+              uses: peter-evans/repository-dispatch@v3
+              with:
+                  token: ${{ secrets.PAT }}
+                  repository: kd3n1z/badengine-editor
+                  event-type: bump-backend
