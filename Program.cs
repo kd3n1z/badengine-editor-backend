@@ -1,7 +1,7 @@
 ﻿namespace badengine_editor_backend;
 
 internal static class Program {
-    public const string Version = "1.1.0";
+    public const string Version = "1.2.0";
 
     public static void Main(string[] args) {
         if (args.Length <= 0) {
@@ -27,6 +27,10 @@ internal static class Program {
                 while (true) {
                     Thread.Sleep(1000);
                 }
+            case "analyse":
+                string projectPath = Path.Combine(Path.GetFullPath(args[1]));
+                Logger.Log("analyseResult", Analyser.BuildAndAnalyse(projectPath).ToString());
+                return;
             case "build":
                 Logger.Log("buildStatus", "pretending to build");
                 Thread.Sleep(4000);
