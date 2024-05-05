@@ -1,7 +1,7 @@
 ﻿namespace badengine_editor_backend;
 
 internal static class Program {
-    public const string Version = "1.2.0";
+    public const string Version = "1.2.1";
 
     public static void Main(string[] args) {
         if (args.Length <= 0) {
@@ -39,6 +39,9 @@ internal static class Program {
             case "play":
                 Logger.Log("buildStatus", "pretending to play");
                 Thread.Sleep(2000);
+                Logger.Log("playStatus", "game started");
+                Thread.Sleep(5000);
+                Logger.Log("playStatus", "game exited (code 0)");
                 return;
             default:
                 Console.WriteLine("unknown command: `" + args[0] + "`");
