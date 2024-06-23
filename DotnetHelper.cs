@@ -11,6 +11,8 @@ public static class DotnetHelper {
         process.StartInfo.WorkingDirectory = workingDirectory;
         process.StartInfo.CreateNoWindow = true;
         process.StartInfo.UseShellExecute = false;
+        process.StartInfo.RedirectStandardOutput = true;
+        process.StartInfo.RedirectStandardError = true;
 
         foreach (string arg in args) {
             process.StartInfo.ArgumentList.Add(arg);
