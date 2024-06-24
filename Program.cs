@@ -1,7 +1,7 @@
 ﻿namespace badengine_editor_backend;
 
 internal static class Program {
-    public const string Version = "1.2.2";
+    public const string Version = "1.3.0";
 
     public static void Main(string[] args) {
         if (args.Length <= 0) {
@@ -14,6 +14,8 @@ internal static class Program {
 
             return;
         }
+
+        string projectPath = args.Length >= 2 ? Path.GetFullPath(args[1]) : "";
 
         switch (args[0]) {
             case "getInfo":
@@ -28,7 +30,6 @@ internal static class Program {
                     Thread.Sleep(1000);
                 }
             case "analyse":
-                string projectPath = Path.Combine(Path.GetFullPath(args[1]));
                 Logger.Log("analyseResult", Analyser.BuildAndAnalyse(projectPath).ToString());
                 return;
             case "build":
@@ -42,6 +43,17 @@ internal static class Program {
                 Logger.Log("playStatus", "game started");
                 Thread.Sleep(5000);
                 Logger.Log("playStatus", "game exited (code 0)");
+                return;
+            case "generateCsProj":
+                Logger.Log("status", "generating game.csproj...");
+                try {
+                    File.WriteAllText(Path.Combine(projectPath, "game.csproj"), ProjectHelper.GenerateCsProj(args[2]));
+                    Logger.Log("status", "done");
+                }
+                catch {
+                    Logger.Log("status", "failed");
+                }
+
                 return;
             default:
                 Console.WriteLine("unknown command: `" + args[0] + "`");
